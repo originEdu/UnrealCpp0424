@@ -23,5 +23,11 @@ protected:
 	float Direction=0;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Data")
 	float Speed=0;
+
 	FVector SmoothVelocity;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Data")
+	float LeanAngle = 0.0f;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Data")
+	float HeadScale = 1.0f;
 };

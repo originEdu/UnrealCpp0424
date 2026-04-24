@@ -41,8 +41,17 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "input")
 	TObjectPtr<UInputAction> IA_Move;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "input")
+	TObjectPtr<UInputAction> IA_Lean;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "input")
 	TObjectPtr<UInputAction> IA_Jump;
 
 	void Look(const FInputActionValue& Value);
 	void Move(const FInputActionValue& Value);
+	void Lean(const FInputActionValue& Value);
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "data")
+	float LeanAngle;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "data")
+	bool bIsBigHeadMode;
 };

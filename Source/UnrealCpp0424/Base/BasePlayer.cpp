@@ -9,6 +9,7 @@
 #include "InputAction.h"
 #include "EnhancedInputComponent.h"
 #include "Kismet/KismetMathLibrary.h"
+#include "UnrealCpp0424/UnrealCpp0424.h"
 
 // Sets default values
 ABasePlayer::ABasePlayer()
@@ -54,6 +55,8 @@ void ABasePlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 		EIC->BindAction(IA_Move, ETriggerEvent::Triggered, this, &ABasePlayer::Move);
 		EIC->BindAction(IA_Jump, ETriggerEvent::Started, this, &ABasePlayer::Jump);
 		EIC->BindAction(IA_Jump, ETriggerEvent::Completed, this, &ABasePlayer::StopJumping);
+		EIC->BindAction(IA_Lean, ETriggerEvent::Triggered, this, &ABasePlayer::Lean);
+		EIC->BindAction(IA_Lean, ETriggerEvent::Completed, this, &ABasePlayer::Lean);
 	}
 }
 
@@ -74,5 +77,12 @@ void ABasePlayer::Move(const FInputActionValue& Value)
 	FVector RightDirection = UKismetMathLibrary::GetRightVector(YawRotation);
 	AddMovementInput(ForwardDirection, MovementVector.X);
 	AddMovementInput(RightDirection, MovementVector.Y);
+}
+
+void ABasePlayer::Lean(const FInputActionValue& Value)
+{
+	float InValue = Value.Get<float>();
+	UE_LOG(LogOrigin, Log, TEXT("LeanAngle: %f"), LeanAngle);
+	LeanAngle = 30.0f * InValue;
 }
 
