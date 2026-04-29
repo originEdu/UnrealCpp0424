@@ -40,7 +40,6 @@ void ABasePlayer::BeginPlay()
 void ABasePlayer::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
 }
 
 // Called to bind functionality to input
@@ -86,3 +85,20 @@ void ABasePlayer::Lean(const FInputActionValue& Value)
 	LeanAngle = 30.0f * InValue;
 }
 
+FRotator ABasePlayer::GetAimOffset() const
+{
+	//AimRotation은 World방향으로 준다
+	//하지만 우리가 필요한건 Local 방향이 필요함
+	//월드벡터에서 로컬벡터로 바꾸는거 월드가 가지고있다 -> 행렬계산임
+
+	//World -> Local
+
+	//로테이션을 벡터로 변환
+	const FVector AimDirWorldSpace = GetBaseAimRotation().Vector();
+	//월드벡터를 로컬벡터로 변환
+	const FVector AimDirLocalSpace = ActorToWorld().InverseTransformVectorNoScale(AimDirWorldSpace);
+	//로컬벡터를 로테이션으로 변환
+	const FRotator AimRotLocalSpace = AimDirLocalSpace.Rotation();
+
+	return AimRotLocalSpace;
+}

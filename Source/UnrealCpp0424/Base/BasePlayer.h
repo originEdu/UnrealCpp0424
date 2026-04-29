@@ -11,6 +11,14 @@ class UCameraComponent;
 class UInputAction;
 struct FInputActionValue;
 
+UENUM(BlueprintType)
+enum class EPoseState : uint8
+{
+	Stand = 0 UMETA(DisplayName="Stand"),
+	Crouch = 10 UMETA(DisplayName = "Crouch"),
+	Prone = 20 UMETA(DisplayName = "Prone"),
+};
+
 UCLASS()
 class UNREALCPP0424_API ABasePlayer : public ACharacter
 {
@@ -49,9 +57,17 @@ public:
 	void Move(const FInputActionValue& Value);
 	void Lean(const FInputActionValue& Value);
 
+	FRotator GetAimOffset() const;
+
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "data")
 	float LeanAngle;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "data")
 	bool bIsBigHeadMode;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "State")
+	EPoseState CurrentPoseState = EPoseState::Stand;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "State")
+	uint8 bIsWeaponEqipped : 1 = false ;
 };

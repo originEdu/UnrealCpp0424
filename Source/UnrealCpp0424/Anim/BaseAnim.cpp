@@ -42,6 +42,12 @@ void UBaseAnim::NativeUpdateAnimation(float DeltaSeconds)
 		{
 			HeadScale = FMath::FInterpTo(HeadScale, 1.0f, DeltaSeconds, InterpSpeed);
 		}
+
+		AimPitch = Player->GetAimOffset().Pitch;
+		AimYaw = Player->GetAimOffset().Yaw;
+
+		CurrentPoseState = Player->CurrentPoseState;
+		bIsWeaponEqipped = Player->bIsWeaponEqipped;
 	}
 
 }
