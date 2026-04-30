@@ -42,4 +42,8 @@ protected:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "State")
 	uint8 bIsWeaponEqipped : 1 = false;
+
+	//노티파이함수 생성
+	UFUNCTION()
+	void AnimNotify_CheckCombo_CPP();
 };

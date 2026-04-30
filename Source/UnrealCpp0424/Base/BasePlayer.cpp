@@ -56,6 +56,7 @@ void ABasePlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 		EIC->BindAction(IA_Jump, ETriggerEvent::Completed, this, &ABasePlayer::StopJumping);
 		EIC->BindAction(IA_Lean, ETriggerEvent::Triggered, this, &ABasePlayer::Lean);
 		EIC->BindAction(IA_Lean, ETriggerEvent::Completed, this, &ABasePlayer::Lean);
+		EIC->BindAction(IA_Attack, ETriggerEvent::Completed, this, &ABasePlayer::Attack);
 	}
 }
 
@@ -83,6 +84,11 @@ void ABasePlayer::Lean(const FInputActionValue& Value)
 	float InValue = Value.Get<float>();
 	UE_LOG(LogOrigin, Log, TEXT("LeanAngle: %f"), LeanAngle);
 	LeanAngle = 30.0f * InValue;
+}
+
+void ABasePlayer::Attack(const FInputActionValue& Value)
+{
+	
 }
 
 FRotator ABasePlayer::GetAimOffset() const

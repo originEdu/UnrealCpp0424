@@ -56,3 +56,7 @@ void UBaseAnim::NativeThreadSafeUpdateAnimation(float DeltaSeconds)
 {
 	Super::NativeThreadSafeUpdateAnimation(DeltaSeconds);
 }
+
+void UBaseAnim::AnimNotify_CheckCombo_CPP()
+{
+}

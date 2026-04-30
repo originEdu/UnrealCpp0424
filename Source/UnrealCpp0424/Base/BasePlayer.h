@@ -52,10 +52,13 @@ public:
 	TObjectPtr<UInputAction> IA_Lean;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "input")
 	TObjectPtr<UInputAction> IA_Jump;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "input")
+	TObjectPtr<UInputAction> IA_Attack;
 
 	void Look(const FInputActionValue& Value);
 	void Move(const FInputActionValue& Value);
 	void Lean(const FInputActionValue& Value);
+	void Attack(const FInputActionValue& Value);
 
 	FRotator GetAimOffset() const;
 
