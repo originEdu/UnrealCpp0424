@@ -4,19 +4,20 @@
 
 #include "CoreMinimal.h"
 #include "Animation/AnimNotifies/AnimNotify.h"
-#include "AnimNotify_CheckCombo.generated.h"
+#include "AnimNotify_ComboEnd.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class UNREALCPP0424_API UAnimNotify_CheckCombo : public UAnimNotify
+class UNREALCPP0424_API UAnimNotify_ComboEnd : public UAnimNotify
 {
 	GENERATED_BODY()
 public:
 	FORCEINLINE FString GetNotifyName_Implementation() const
 	{
-		return TEXT("CheckAttack");
+		return TEXT("ComboEnd");
 	};
 	virtual void Notify(USkeletalMeshComponent* MeshComp, UAnimSequenceBase* Animation, const FAnimNotifyEventReference& EventReference) override;
+
 };

@@ -86,11 +86,6 @@ void ABasePlayer::Lean(const FInputActionValue& Value)
 	LeanAngle = 30.0f * InValue;
 }
 
-void ABasePlayer::Attack(const FInputActionValue& Value)
-{
-	
-}
-
 FRotator ABasePlayer::GetAimOffset() const
 {
 	//AimRotation은 World방향으로 준다
@@ -108,3 +103,73 @@ FRotator ABasePlayer::GetAimOffset() const
 
 	return AimRotLocalSpace;
 }
+
+void ABasePlayer::Attack(const FInputActionValue& Value)
+{
+	ComboAttack();
+}
+
+void ABasePlayer::ResetComboData()
+{
+	ComboCount = 0;
+	PlayingComboIndex = 0;
+	bIsAttacking = false;
+}
+
+void ABasePlayer::CheckCombo()
+{
+	if (PlayingComboIndex != ComboCount)
+	{
+		PlayComboMontage();
+		PlayingComboIndex = ComboCount;
+	}
+}
+
+void ABasePlayer::ComboAttack()
+{
+	if (!bIsAttacking)
+	{
+		ComboCount++;
+
+		PlayComboMontage();
+
+		bIsAttacking = true;
+
+		PlayingComboIndex = ComboCount;
+
+
+	}
+	else if (bIsAttacking && PlayingComboIndex == ComboCount)
+	{
+		ComboCount++;
+	}
+}
+
+void ABasePlayer::PlayComboMontage()
+{
+	if (UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance())
+	{
+		FString SectionName = FString::Printf(TEXT("Attack0%d"), ComboCount);
+		PlayAnimMontage(ComboMontage, 1.0f, FName(SectionName));
+
+		//델리게이트 방식
+		//float MontageLength = PlayAnimMontage(ComboMontage, 1.0f, FName(SectionName));
+		//
+		//if (MontageLength > 0)
+		//{
+		//	FOnMontageEnded EndDelegate;
+		//
+		//	EndDelegate.BindLambda([this](UAnimMontage* Montage, bool bInterrupted) {
+		//		if (!bInterrupted)
+		//		{
+		//			UE_LOG(LogTemp, Warning, TEXT("EndDelegate"));
+		//			ComboCount = 0;
+		//			PlayingComboIndex = 0;
+		//			bIsAttacking = false;
+		//		}
+		//		});
+		//	AnimInstance->Montage_SetEndDelegate(EndDelegate);
+		//}
+	}
+}
+

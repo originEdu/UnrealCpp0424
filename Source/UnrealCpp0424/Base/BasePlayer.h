@@ -10,6 +10,7 @@ class USpringArmComponent;
 class UCameraComponent;
 class UInputAction;
 struct FInputActionValue;
+class UAnimMontage;
 
 UENUM(BlueprintType)
 enum class EPoseState : uint8
@@ -73,4 +74,26 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "State")
 	uint8 bIsWeaponEqipped : 1 = false ;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combo")
+	uint8 ComboCount = 0;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combo")
+	TObjectPtr<UAnimMontage> ComboMontage;
+
+	void ResetComboData();
+
+	UFUNCTION(BlueprintCallable)
+	void CheckCombo();
+
+	UFUNCTION(BlueprintCallable)
+	void ComboAttack();
+
+	void PlayComboMontage();
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Stat")
+	uint8 bIsAttacking : 1 = false;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Stat")
+	uint8 PlayingComboIndex = 0;
 };
